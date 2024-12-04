@@ -1,5 +1,5 @@
 PlayerList = []
-def initPlayer():
+def initPlayers():
     global PlayerList 
     PlayerList= []
 
