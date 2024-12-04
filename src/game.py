@@ -1,36 +1,37 @@
 PlayerList = []
+
+# no 1
 def initPlayers():
     global PlayerList 
     PlayerList= []
 
+# no 2
 def createNewPlayer(name, damage=0, defensePower=0):
-    return{
-        "name":name,
-        "score":0,
-        "damage":damage,
-        "health":100,
-        "defensePower":defensePower,
-        "defense":False
-    }
-        
+    return dict(
+        name=name,
+        score=0,
+        damage=damage,
+        health=100,
+        defensePower=defensePower,
+        defense=False)
 
+# no 3
 def addPlayer(player):
-    global PlayerList
     PlayerList.append(player)
 
+# no 4
 def removePlayer(name):
-    global PlayerList
-    for i in PlayerList:
-        if i['name']==name:
-            PlayerList.remove(i)
+    for player in PlayerList:
+        if player['name']==name:
+            PlayerList.remove(player)
             return
     print("There is no player with that name!")
 
-        
+# no 5
 def setPlayer(player, key, value):
-    if key in player:
-        player[key]=value
+    player[key] = value
 
+# no 6
 def attackPlayer(attacker:dict, target:dict):
     if target["defense"]:
         setPlayer(attacker, "score", round(attacker.get( "score") +1 - 1/target["defensePower"],2))
@@ -42,12 +43,11 @@ def attackPlayer(attacker:dict, target:dict):
 
    
     setPlayer(target, "defense", False)
-    
+
+# no 7    
 def displayMatchResult():
-    sorted_players= sorted(PlayerList, key=lambda p: (p["score"], p["health"]), reverse=True)
-    print("\nMatch Results:")
-    print(f"{'Rank':<5}|{'Name':<14}|{'Score':<10}|{'Health'}")
-    for rank, player in enumerate(sorted_players, start=1):
-        print(f"{rank:<5}|{player['name']:<14}|{player['score']:<10}|{player['health']}")
-
-
+    PlayerList.sort(key=lambda y: (-y['score'], -y['health']))
+    for rank, player in enumerate(PlayerList, start=1):
+        print(f"Rank {rank}: {player['name']} | Score: {player['score']} | Health: {player['health']}")
+    
+    return PlayerList
