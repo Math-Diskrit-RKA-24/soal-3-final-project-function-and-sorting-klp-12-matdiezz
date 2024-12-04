@@ -1,5 +1,5 @@
 PlayerList = []
-def initPlayers():
+def initPlayer():
     global PlayerList 
     PlayerList= []
 
@@ -33,12 +33,14 @@ def setPlayer(player, key, value):
 
 def attackPlayer(attacker:dict, target:dict):
     if target["defense"]:
-        dReceive= max(0, attacker["damage"] - target["defensePower"]) #serangan penyerang-pertahanan korban
+        setPlayer(attacker, "score", round(attacker.get( "score") +1 - 1/target["defensePower"],2))
+        setPlayer(target, "health", target.get("health")-attacker.get("damage")+target.get("defensePower"))
+       
     else:
-        dReceive= attacker["damage"]
+        setPlayer(attacker, "score", attacker.get("score")+ 1)
+        setPlayer(target, "health", target.get("health")- attacker.get("damage"))
 
-    setPlayer(target, "health", target["health"] - dReceive)
-    setPlayer(attacker, "score", attacker["score"] + dReceive)
+   
     setPlayer(target, "defense", False)
     
 def displayMatchResult():
@@ -47,3 +49,5 @@ def displayMatchResult():
     print(f"{'Rank':<5}|{'Name':<14}|{'Score':<10}|{'Health'}")
     for rank, player in enumerate(sorted_players, start=1):
         print(f"{rank:<5}|{player['name']:<14}|{player['score']:<10}|{player['health']}")
+
+
