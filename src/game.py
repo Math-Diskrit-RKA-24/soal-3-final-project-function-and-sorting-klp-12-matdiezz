@@ -34,7 +34,7 @@ def setPlayer(player, key, value):
 # no 6
 def attackPlayer(attacker:dict, target:dict):
     if target["defense"]:
-        setPlayer(attacker, "score", round(attacker.get( "score") +1 - 1/target["defensePower"],2))
+        setPlayer(attacker, "score", round(attacker.get( "score") +1 - 1/target.get("defensePower"),2))
         setPlayer(target, "health", target.get("health")-attacker.get("damage")+target.get("defensePower"))
        
     else:
